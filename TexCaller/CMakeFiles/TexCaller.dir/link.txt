@@ -1,0 +1,1 @@
+/usr/bin/clang-9 -fPIC -g  -shared -Wl,-soname,libTexCaller.so -o libTexCaller.so CMakeFiles/TexCaller.dir/texcaller.c.o 
