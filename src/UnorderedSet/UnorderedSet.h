@@ -1,9 +1,9 @@
 #pragma once
 
-#include <unordered_set>
 #include <UnorderedMap.h>
+#include <unordered_set>
 
 class Unit {};
 
-template<class T>
+template <class T>
 using UnorderedSet = UnorderedMap<T, Unit>;

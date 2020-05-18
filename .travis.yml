@@ -8,7 +8,7 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-bionic-8
+      - llvm-toolchain-bionic-9
       - key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
       - g++-7
@@ -22,7 +22,6 @@ script:
   - ./run-clang-format.py -r tests/ stdin_stdout/ src/ -e tests/gtest --clang-format-executable clang-format-8
   - export CC=gcc-7
   - export CXX=g++-7
-  - cd tests
   - mkdir cmake
   - cd cmake/
   - cmake --version
