@@ -25,6 +25,7 @@ script:
   - make
   - cd tests
   - ctest --verbose
+  - cd ..
 
 after_success:
   - coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*" -E "usr/.*"
