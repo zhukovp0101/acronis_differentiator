@@ -28,7 +28,7 @@ script:
   - cd ..
 
 after_success:
-  - coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*" -E "usr/.*"
+  - coveralls --root . -E ".*tests.*" -E ".*CMakeFiles.*" -E "usr/.*"
 
 
 
