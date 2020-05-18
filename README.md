@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/zhukovp0101/acronis_differentiator.svg?branch=master)](https://travis-ci.com/zhukovp0101/acronis_differentiator)
+
 Acronis. Символьный дифференциатор
 ==================================
 
