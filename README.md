@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/zhukovp0101/acronis_differentiator.svg?branch=master)](https://travis-ci.com/zhukovp0101/acronis_differentiator)
+[![Coverage Status](https://coveralls.io/repos/github/zhukovp0101/acronis_differentiator/badge.svg?branch=master)](https://coveralls.io/github/zhukovp0101/acronis_differentiator?branch=master)
 
 Acronis. Символьный дифференциатор
 ==================================
