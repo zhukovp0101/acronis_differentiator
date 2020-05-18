@@ -26,11 +26,7 @@ script:
   - cd tests
   - ctest --verbose
 
-after_success:
-  - lcov --capture --directory . --output-file coverage.info -b "$PWD/../src/" --no-external
-  - lcov --remove coverage.info '/usr/*' --output-file coverage.info 
-  - lcov --list coverage.info
-  - bash <(curl -s https://codecov.io/bash) -f coverage.info -t 95b05194-7864-4ac6-897a-e60379c01978 || echo "Codecov did not collect coverage reports"
+
 
 
 
