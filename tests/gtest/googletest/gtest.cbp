@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="gtest"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\TexCaller\;CMake Files\stdin_stdout\;CMake Files\tests\;CMake Files\tests\gtest\;CMake Files\tests\gtest\googlemock\;CMake Files\tests\gtest\googlemock\cmake\;CMake Files\tests\gtest\googletest\;CMake Files\tests\gtest\googletest\cmake\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main">
+				<Option output="/home/bevertax/MyDocs/C++/Acronis/lib/libgtest_maind.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/TexCaller"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Differenctiator"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Parser"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/String"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Tree"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedMap"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedSet"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Vector"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/List"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/include"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main/fast">
+				<Option output="/home/bevertax/MyDocs/C++/Acronis/lib/libgtest_maind.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/TexCaller"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Differenctiator"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Parser"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/String"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Tree"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedMap"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedSet"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Vector"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/List"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/include"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest">
+				<Option output="/home/bevertax/MyDocs/C++/Acronis/lib/libgtestd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/TexCaller"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Differenctiator"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Parser"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/String"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Tree"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedMap"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedSet"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Vector"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/List"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/include"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest/fast">
+				<Option output="/home/bevertax/MyDocs/C++/Acronis/lib/libgtestd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/TexCaller"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Differenctiator"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Parser"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/String"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Tree"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedMap"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/UnorderedSet"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/Vector"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/src/List"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/include"/>
+					<Add directory="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/src/gtest-all.cc">
+			<Option target="gtest"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/src/gtest_main.cc">
+			<Option target="gtest_main"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/TexCaller/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\TexCaller\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/stdin_stdout/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\stdin_stdout\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\gtest\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googlemock/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\gtest\googlemock\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googlemock/cmake/gmock.pc.in">
+			<Option virtualFolder="CMake Files\tests\gtest\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googlemock/cmake/gmock_main.pc.in">
+			<Option virtualFolder="CMake Files\tests\gtest\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\gtest\googletest\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/cmake/Config.cmake.in">
+			<Option virtualFolder="CMake Files\tests\gtest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/cmake/gtest.pc.in">
+			<Option virtualFolder="CMake Files\tests\gtest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/cmake/gtest_main.pc.in">
+			<Option virtualFolder="CMake Files\tests\gtest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/bevertax/MyDocs/C++/Acronis/tests/gtest/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\tests\gtest\googletest\cmake\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
