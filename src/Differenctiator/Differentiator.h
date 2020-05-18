@@ -200,12 +200,6 @@ class Formula {
           const auto &left = node->children_[0];
           const auto &right = node->children_[1];
 
-          //					if (left->value_->str_ == "0") {
-          //						node.value_ =
-          // right->value_; 						node->children_
-          // = right->children_; break;
-          //					}
-
           if (right->value_->str_ == "0") {
             tree_.Replace(node, tree_.ExtractSubTree(left).GetRoot());
             break;
