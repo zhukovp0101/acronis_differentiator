@@ -202,8 +202,8 @@ class Formula {
 
           //					if (left->value_->str_ == "0") {
           //						node.value_ =
-          // right->value_; 						node->children_ =
-          // right->children_; 						break;
+          // right->value_; 						node->children_
+          // = right->children_; break;
           //					}
 
           if (right->value_->str_ == "0") {

@@ -8,7 +8,7 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-bionic-9
+      - llvm-toolchain-bionic
       - key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
       - g++-7
@@ -27,6 +27,7 @@ script:
   - cmake --version
   - cmake ../
   - make
+  - cd ../tests
   - ctest --verbose
 
 
