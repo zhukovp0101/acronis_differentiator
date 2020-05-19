@@ -38,9 +38,19 @@
 
 #define LaTeXPOW(expr, pow) expr + "^{" + pow + "}"
 
-#define LOG(arg) String("log") + arg
+#define LOG(arg) String("log(") + arg + ")"
+
+#define COS(arg) String("cos(") + arg + ")"
+
+#define SIN(arg) String("sin(") + arg + ")"
 
 #define LaTeXLOG(arg) String("\\ln{") + arg + "}"
+
+#define LaTeXCOS(arg) String("\\cos{") + arg + "}"
+
+#define LaTeXSIN(arg) String("\\sin{") + arg + "}"
+
+#define ZERO String("0")
 
 class Formula {
  public:
@@ -105,7 +115,21 @@ class Formula {
             case Parser::BaseTokenTypes::LOG: {
               const auto &arg = string_iter->children_[0];
 
-              string_iter->value_.expr_ = LOG(Braced(arg->value_.expr_));
+              string_iter->value_.expr_ = LOG(arg->value_.expr_);
+              string_iter->value_.is_simple_ = true;
+            } break;
+
+            case Parser::BaseTokenTypes::SIN: {
+              const auto &arg = string_iter->children_[0];
+
+              string_iter->value_.expr_ = SIN(arg->value_.expr_);
+              string_iter->value_.is_simple_ = true;
+            } break;
+
+            case Parser::BaseTokenTypes::COS: {
+              const auto &arg = string_iter->children_[0];
+
+              string_iter->value_.expr_ = COS(arg->value_.expr_);
               string_iter->value_.is_simple_ = true;
             } break;
 
@@ -182,6 +206,41 @@ class Formula {
 
   void Optimize() {
     for (auto &&node = tree_.begin(); node != tree_.end(); ++node) {
+      if (node->children_.size() == 2) {
+        const auto &left = node->children_[0];
+        const auto &right = node->children_[1];
+        if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
+            right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
+          auto result = HandleNumbers(left->value_->str_, right->value_->str_,
+                                      node->value_->type_);
+          auto token =
+              parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
+                                .str_ = std::move(result),
+                                .priority_ = 0,
+                                .operands_number_ = 0,
+                                .is_function = false});
+          tree_.Replace(node, std::make_shared<Parser::ParseTree::Node>(token));
+        }
+
+        continue;
+      }
+
+      if (node->children_.size() == 1) {
+        const auto &arg = node->children_[0];
+        if (arg->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
+          auto result = HandleNumbers(arg->value_->str_, node->value_->type_);
+          auto token =
+              parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
+                                .str_ = std::move(result),
+                                .priority_ = 0,
+                                .operands_number_ = 0,
+                                .is_function = false});
+          tree_.Replace(node, std::make_shared<Parser::ParseTree::Node>(token));
+        }
+
+        continue;
+      }
+
       switch (node->value_->type_) {
         case Parser::BaseTokenTypes::PLUS: {
           const auto &left = node->children_[0];
@@ -196,20 +255,6 @@ class Formula {
             tree_.Replace(node, tree_.ExtractSubTree(left).GetRoot());
             break;
           }
-
-          if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
-              right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
-            auto result = HandleNumbers(left->value_->str_, right->value_->str_,
-                                        Parser::BaseTokenTypes::PLUS);
-            auto token =
-                parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
-                                  .str_ = std::move(result),
-                                  .priority_ = 0,
-                                  .operands_number_ = 0,
-                                  .is_function = false});
-            tree_.Replace(node,
-                          std::make_shared<Parser::ParseTree::Node>(token));
-          }
         } break;
 
         case Parser::BaseTokenTypes::MINUS: {
@@ -219,20 +264,6 @@ class Formula {
           if (right->value_->str_ == "0") {
             tree_.Replace(node, tree_.ExtractSubTree(left).GetRoot());
             break;
-          }
-
-          if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
-              right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
-            auto result = HandleNumbers(left->value_->str_, right->value_->str_,
-                                        Parser::BaseTokenTypes::MINUS);
-            auto token =
-                parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
-                                  .str_ = std::move(result),
-                                  .priority_ = 0,
-                                  .operands_number_ = 0,
-                                  .is_function = false});
-            tree_.Replace(node,
-                          std::make_shared<Parser::ParseTree::Node>(token));
           }
         } break;
 
@@ -259,20 +290,6 @@ class Formula {
             tree_.Replace(node, tree_.ExtractSubTree(right).GetRoot());
             break;
           }
-
-          if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
-              right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
-            auto result = HandleNumbers(left->value_->str_, right->value_->str_,
-                                        Parser::BaseTokenTypes::MULT);
-            auto token =
-                parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
-                                  .str_ = std::move(result),
-                                  .priority_ = 0,
-                                  .operands_number_ = 0,
-                                  .is_function = false});
-            tree_.Replace(node,
-                          std::make_shared<Parser::ParseTree::Node>(token));
-          }
         } break;
 
         case Parser::BaseTokenTypes::DIV: {
@@ -287,20 +304,6 @@ class Formula {
           if (right->value_->str_ == "1") {
             tree_.Replace(node, tree_.ExtractSubTree(left).GetRoot());
             break;
-          }
-
-          if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
-              right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
-            auto result = HandleNumbers(left->value_->str_, right->value_->str_,
-                                        Parser::BaseTokenTypes::DIV);
-            auto token =
-                parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
-                                  .str_ = std::move(result),
-                                  .priority_ = 0,
-                                  .operands_number_ = 0,
-                                  .is_function = false});
-            tree_.Replace(node,
-                          std::make_shared<Parser::ParseTree::Node>(token));
           }
         } break;
 
@@ -333,20 +336,6 @@ class Formula {
             tree_.Replace(node,
                           std::make_shared<Parser::ParseTree::Node>(token));
             break;
-          }
-
-          if (left->value_->type_ == Parser::BaseTokenTypes::NUMBER &&
-              right->value_->type_ == Parser::BaseTokenTypes::NUMBER) {
-            auto result = HandleNumbers(left->value_->str_, right->value_->str_,
-                                        Parser::BaseTokenTypes::POW);
-            auto token =
-                parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
-                                  .str_ = std::move(result),
-                                  .priority_ = 0,
-                                  .operands_number_ = 0,
-                                  .is_function = false});
-            tree_.Replace(node,
-                          std::make_shared<Parser::ParseTree::Node>(token));
           }
         } break;
 
@@ -384,6 +373,26 @@ class Formula {
       } break;
       case Parser::BaseTokenTypes::POW: {
         stringstream << powl(left, right);
+      } break;
+      default: {
+      }
+    }
+
+    return stringstream.str();
+  }
+
+  static String HandleNumbers(const String &arg_str, int operation) {
+    auto arg = std::stold(arg_str);
+    std::stringstream stringstream;
+    switch (operation) {
+      case Parser::BaseTokenTypes::LOG: {
+        stringstream << std::log(arg);
+      } break;
+      case Parser::BaseTokenTypes::SIN: {
+        stringstream << std::sin(arg);
+      } break;
+      case Parser::BaseTokenTypes::COS: {
+        stringstream << std::cos(arg);
       } break;
       default: {
       }
@@ -449,6 +458,22 @@ class Formula {
 
               latex_iter->value_.expr_ =
                   LaTeXLOG(LaTeXBraced(arg->value_.expr_));
+              latex_iter->value_.is_simple_ = true;
+            } break;
+
+            case Parser::BaseTokenTypes::SIN: {
+              const auto &arg = latex_iter->children_[0];
+
+              latex_iter->value_.expr_ =
+                  LaTeXSIN(LaTeXBraced(arg->value_.expr_));
+              latex_iter->value_.is_simple_ = true;
+            } break;
+
+            case Parser::BaseTokenTypes::COS: {
+              const auto &arg = latex_iter->children_[0];
+
+              latex_iter->value_.expr_ =
+                  LaTeXCOS(LaTeXBraced(arg->value_.expr_));
               latex_iter->value_.is_simple_ = true;
             } break;
 
@@ -544,12 +569,38 @@ class Differentiator {
 
         current.diff_ = MULT(
             POW(Braced(left.normal_), Braced(MINUS(right.normal_, "1"))),
-            Braced(PLUS(
-                MULT(Braced(right.normal_), Braced(left.diff_)),
-                MULT(Braced(left.normal_),
-                     MULT("log(" + left.normal_ + ")", Braced(right.diff_))))));
+            Braced(PLUS(MULT(Braced(right.normal_), Braced(left.diff_)),
+                        MULT(Braced(left.normal_),
+                             MULT(LOG(left.normal_), Braced(right.diff_))))));
 
         current.normal_ = POW(Braced(left.normal_), Braced(right.normal_));
+      } break;
+
+      case Parser::BaseTokenTypes::LOG: {
+        // log(f)' = f' / f
+
+        const auto &arg = cur_iter->children_[0]->value_;
+
+        current.diff_ = DIV(Braced(arg.diff_), Braced(arg.normal_));
+        current.normal_ = LOG(arg.normal_);
+      } break;
+
+      case Parser::BaseTokenTypes::SIN: {
+        // sin(f)' = f' * cos(f)
+
+        const auto &arg = cur_iter->children_[0]->value_;
+
+        current.diff_ = MULT(Braced(arg.diff_), COS(arg.normal_));
+        current.normal_ = SIN(arg.normal_);
+      } break;
+
+      case Parser::BaseTokenTypes::COS: {
+        // cos(f)' = 0 - f' * sin(f)
+
+        const auto &arg = cur_iter->children_[0]->value_;
+
+        current.diff_ = MINUS(ZERO, MULT(Braced(arg.diff_), SIN(arg.normal_)));
+        current.normal_ = COS(arg.normal_);
       } break;
 
       case Parser::BaseTokenTypes::NUMBER: {

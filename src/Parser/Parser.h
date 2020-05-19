@@ -23,6 +23,8 @@ class Parser {
     static const int NUMBER = 7;
     static const int VARIABLE = 8;
     static const int LOG = 9;
+    static const int SIN = 10;
+    static const int COS = 11;
   };
   struct Token {
     int type_;
@@ -135,7 +137,17 @@ class Parser {
                 .str_ = "log",
                 .priority_ = 4,
                 .operands_number_ = 1,
-                .is_function = false});
+                .is_function = true});
+      AddToken({.type_ = BaseTokenTypes::SIN,
+                .str_ = "sin",
+                .priority_ = 4,
+                .operands_number_ = 1,
+                .is_function = true});
+      AddToken({.type_ = BaseTokenTypes::COS,
+                .str_ = "cos",
+                .priority_ = 4,
+                .operands_number_ = 1,
+                .is_function = true});
     }
 
     {
