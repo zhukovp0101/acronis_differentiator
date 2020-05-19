@@ -144,7 +144,13 @@ class Formula {
   }
 
   void ToPDF(const String &filename) {
-    std::ofstream out("tmp.tex");
+    std::ofstream out;
+
+    if (filename.find(".tex") != filename.npos) {
+      out.open(filename.c_str());
+    } else {
+      out.open("tmp.tex");
+    }
 
     out << "\\documentclass{article}\n"
            "\\usepackage[T1,T2A]{fontenc}\n"
@@ -166,9 +172,10 @@ class Formula {
 
     out.close();
 
-    texcaller_to_pdf("LaTeX", "PDF", 5, "tmp.tex", filename.c_str());
-
-    std::remove("tmp.tex");
+    if (filename.find(".tex") == filename.npos) {
+      texcaller_to_pdf("LaTeX", "PDF", 5, "tmp.tex", filename.c_str());
+      std::remove("tmp.tex");
+    }
   }
 
   Formula At(const UnorderedMap<String, String> &variables) const {
