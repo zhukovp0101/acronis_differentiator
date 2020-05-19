@@ -8,7 +8,9 @@ void Dialog(const Formula& formula) {
               << std::endl;
     std::cin >> answer;
     if (answer == "y" || answer == "Y") {
-      std::cout << "Type up the function values in the following format: [variable value], complete with [0 0]" << std::endl;
+      std::cout << "Type up the function values in the following format: "
+                   "[variable value], complete with [0 0]"
+                << std::endl;
       std::string variable;
       std::string value;
       UnorderedMap<String, String> variables_;
@@ -21,16 +23,15 @@ void Dialog(const Formula& formula) {
       }
 
       std::cout << "Function value is " + formula.At(variables_).ToString()
-                << std::endl << std::endl;
+                << std::endl
+                << std::endl;
     } else {
       break;
     }
   }
-
 }
 
-
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   Differentiator differentiator;
   auto formula = differentiator.Differentiate(argv[1], argv[2]);
   formula.ToPDF(argv[3]);

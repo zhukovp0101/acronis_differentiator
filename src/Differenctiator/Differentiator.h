@@ -385,7 +385,8 @@ class Formula {
       case Parser::BaseTokenTypes::POW: {
         stringstream << powl(left, right);
       } break;
-      default:{}
+      default: {
+      }
     }
 
     return stringstream.str();
@@ -438,16 +439,16 @@ class Formula {
               const auto &left = latex_iter->children_[0];
               const auto &right = latex_iter->children_[1];
 
-              latex_iter->value_.expr_ =
-                  LaTeXPOW(LaTeXOptimizeBraced(left->value_),
-                      right->value_.expr_);
+              latex_iter->value_.expr_ = LaTeXPOW(
+                  LaTeXOptimizeBraced(left->value_), right->value_.expr_);
               latex_iter->value_.is_simple_ = false;
             } break;
 
             case Parser::BaseTokenTypes::LOG: {
               const auto &arg = latex_iter->children_[0];
 
-              latex_iter->value_.expr_ = LaTeXLOG(LaTeXBraced(arg->value_.expr_));
+              latex_iter->value_.expr_ =
+                  LaTeXLOG(LaTeXBraced(arg->value_.expr_));
               latex_iter->value_.is_simple_ = true;
             } break;
 

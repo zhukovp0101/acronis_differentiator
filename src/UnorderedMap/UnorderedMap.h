@@ -17,7 +17,7 @@ class SimpleUnorderedMap {
  public:
   // todo: делать рехеш при маленьком лоад факторе, чтобы итерирование работало
   // за правильную асимптотику;
-  SimpleUnorderedMap(): data_(initial_size_) {};
+  SimpleUnorderedMap() : data_(initial_size_){};
 
   SimpleUnorderedMap(std::initializer_list<std::pair<Key, Value>> &&il) {
     for (auto &&item : il) {
