@@ -17,7 +17,7 @@ class SimpleUnorderedMap {
  public:
   // todo: делать рехеш при маленьком лоад факторе, чтобы итерирование работало
   // за правильную асимптотику;
-  SimpleUnorderedMap() = default;
+  SimpleUnorderedMap(): data_(initial_size_) {};
 
   SimpleUnorderedMap(std::initializer_list<std::pair<Key, Value>> &&il) {
     for (auto &&item : il) {
@@ -237,6 +237,7 @@ class SimpleUnorderedMap {
 
   static const double max_load_factor_;
   static const double coefficient_;
+  static const double initial_size_;
   size_t size_ = 0;
   Hash hash_ = Hash();
   Vector<List<std::pair<const Key, Value>>> data_;
@@ -244,6 +245,9 @@ class SimpleUnorderedMap {
 
 template <class Key, class Value, class Hash>
 double const SimpleUnorderedMap<Key, Value, Hash>::max_load_factor_ = 3;
+
+template <class Key, class Value, class Hash>
+double const SimpleUnorderedMap<Key, Value, Hash>::initial_size_ = 1;
 
 template <class Key, class Value, class Hash>
 double const SimpleUnorderedMap<Key, Value, Hash>::coefficient_ = 2;

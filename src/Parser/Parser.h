@@ -22,6 +22,7 @@ class Parser {
     static const int POW = 6;
     static const int NUMBER = 7;
     static const int VARIABLE = 8;
+    static const int LOG = 9;
   };
   struct Token {
     int type_;
@@ -129,6 +130,11 @@ class Parser {
                 .str_ = "^",
                 .priority_ = 3,
                 .operands_number_ = 2,
+                .is_function = false});
+      AddToken({.type_ = BaseTokenTypes::LOG,
+                .str_ = "log",
+                .priority_ = 4,
+                .operands_number_ = 1,
                 .is_function = false});
     }
 

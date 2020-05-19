@@ -12,14 +12,17 @@
 #include "../Vector/Vector.h"
 
 #include <texcaller.h>
+#include <sstream>
 
 #define Braced(expr) String("(") + expr + String(")")
 
 #define OptimizeBraced(node) \
   (node.is_simple_ ? node.expr_ : "(" + node.expr_ + ")")
 
-#define LaTeXBraced(node) \
+#define LaTeXOptimizeBraced(node) \
   (node.is_simple_ ? node.expr_ : "\\left(" + node.expr_ + "\\right)")
+
+#define LaTeXBraced(expr) "\\left(" + expr + "\\right)"
 
 #define PLUS(expr_1, expr_2) expr_1 + "+" + expr_2
 
@@ -32,6 +35,12 @@
 #define LaTeXDIV(expr_1, expr_2) "\\frac{" + expr_1 + "}{" + expr_2 + "}"
 
 #define POW(expr, pow) expr + "^" + pow
+
+#define LaTeXPOW(expr, pow) expr + "^{" + pow + "}"
+
+#define LOG(arg) String("log") + arg
+
+#define LaTeXLOG(arg) String("\\ln{") + arg + "}"
 
 class Formula {
  public:
@@ -93,6 +102,13 @@ class Formula {
               string_iter->value_.is_simple_ = true;
             } break;
 
+            case Parser::BaseTokenTypes::LOG: {
+              const auto &arg = string_iter->children_[0];
+
+              string_iter->value_.expr_ = LOG(Braced(arg->value_.expr_));
+              string_iter->value_.is_simple_ = true;
+            } break;
+
             default: {
               string_iter->value_.expr_ = formula_iter->value_->str_;
               string_iter->value_.is_simple_ = true;
@@ -112,13 +128,13 @@ class Formula {
            "\\usepackage[english,russian]{babel}\n"
            "\\usepackage{amsmath}\n"
            "\\begin{document}\n"
-           "$$\n"
+           "\\[\n"
            "\\boxed{";
 
     out << GetLaTeX();
 
     out << "}\n"
-           "$$\n"
+           "\\]\n"
            "\\begin{center}"
            "Утрем нос Стивену Вольфраму!(нет)"
            "\\end{center}"
@@ -131,7 +147,7 @@ class Formula {
     std::remove("tmp.tex");
   }
 
-  Formula At(const UnorderedMap<String, String> &variables) {
+  Formula At(const UnorderedMap<String, String> &variables) const {
     auto tree = Parser::ParseTree::CreateLike(
         tree_, [this, &variables](
                    const Parser::ParseTree::PostOrderIterator &formula_iter,
@@ -302,6 +318,11 @@ class Formula {
             break;
           }
 
+          if (right->value_->str_ == "1") {
+            tree_.Replace(node, tree_.ExtractSubTree(left).GetRoot());
+            break;
+          }
+
           if (right->value_->str_ == "0") {
             auto token =
                 parser_.AddToken({.type_ = Parser::BaseTokenTypes::NUMBER,
@@ -347,25 +368,27 @@ class Formula {
                               int operation) {
     auto left = std::stold(left_str);
     auto right = std::stold(right_str);
+    std::stringstream stringstream;
     switch (operation) {
       case Parser::BaseTokenTypes::PLUS: {
-        return std::to_string(left + right);
+        stringstream << left + right;
       } break;
       case Parser::BaseTokenTypes::MINUS: {
-        return std::to_string(left - right);
+        stringstream << left - right;
       } break;
       case Parser::BaseTokenTypes::MULT: {
-        return std::to_string(left * right);
+        stringstream << left * right;
       } break;
       case Parser::BaseTokenTypes::DIV: {
-        return std::to_string(left / right);
+        stringstream << left / right;
       } break;
       case Parser::BaseTokenTypes::POW: {
-        return std::to_string(powl(left, right));
+        stringstream << powl(left, right);
       } break;
-      default:
-        return String();
+      default:{}
     }
+
+    return stringstream.str();
   }
 
   String GetLaTeX() {
@@ -388,7 +411,7 @@ class Formula {
               const auto &right = latex_iter->children_[1];
 
               latex_iter->value_.expr_ =
-                  MINUS(left->value_.expr_, LaTeXBraced(right->value_));
+                  MINUS(left->value_.expr_, LaTeXOptimizeBraced(right->value_));
               latex_iter->value_.is_simple_ = false;
             } break;
 
@@ -397,7 +420,8 @@ class Formula {
               const auto &right = latex_iter->children_[1];
 
               latex_iter->value_.expr_ =
-                  MULT(LaTeXBraced(left->value_), LaTeXBraced(right->value_));
+                  MULT(LaTeXOptimizeBraced(left->value_),
+                       LaTeXOptimizeBraced(right->value_));
               latex_iter->value_.is_simple_ = true;
             } break;
 
@@ -415,7 +439,15 @@ class Formula {
               const auto &right = latex_iter->children_[1];
 
               latex_iter->value_.expr_ =
-                  POW(LaTeXBraced(left->value_), LaTeXBraced(right->value_));
+                  LaTeXPOW(LaTeXOptimizeBraced(left->value_),
+                      right->value_.expr_);
+              latex_iter->value_.is_simple_ = false;
+            } break;
+
+            case Parser::BaseTokenTypes::LOG: {
+              const auto &arg = latex_iter->children_[0];
+
+              latex_iter->value_.expr_ = LaTeXLOG(LaTeXBraced(arg->value_.expr_));
               latex_iter->value_.is_simple_ = true;
             } break;
 
