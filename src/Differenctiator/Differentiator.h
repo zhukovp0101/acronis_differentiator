@@ -220,9 +220,9 @@ class Formula {
                                 .operands_number_ = 0,
                                 .is_function = false});
           tree_.Replace(node, std::make_shared<Parser::ParseTree::Node>(token));
+          
+          continue;
         }
-
-        continue;
       }
 
       if (node->children_.size() == 1) {
@@ -236,9 +236,9 @@ class Formula {
                                 .operands_number_ = 0,
                                 .is_function = false});
           tree_.Replace(node, std::make_shared<Parser::ParseTree::Node>(token));
-        }
 
-        continue;
+          continue;
+        }
       }
 
       switch (node->value_->type_) {
