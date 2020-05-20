@@ -32,7 +32,7 @@ Acronis. Символьный дифференциатор
 ----------
 - компилятор, удовлетворяющий требованиям c++17
 - cmake версии не ниже 3.0
-- пакеты texlive-latex-base, texlive-lang-cyrillic, texlive-lang-cyrillic для вывода в pdf
+- пакеты texlive-latex-base, texlive-lang-cyrillic, texlive-fonts-recommended для вывода в pdf
 
 Как запустить?
 --------------
